@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Documentation tech</title>
+</head>
+<body>
+  <nav id="navbar">
+    <header>Bootstrap Documentation</header>
+    <a class="nav-link" href="#Welcome_to_CodeIgniter">Welcome to CodeIgniter</a>
+    <a class="nav-link" href="#Who_is_CodeIgniter_For">Who is CodeIgniter For</a>
+    <a class="nav-link" href="#Removing_the_index_file">Removing the index file</a>
+    <a class="nav-link" href="#Views">Views</a>
+    <a class="nav-link" href="#Controllers">Controllers</a>
+    <a class="nav-link" href="#Models">Models</a>
+  </nav>
+  
+  <main id="main-doc">
+    <section class="main-section" id="Welcome_to_CodeIgniter">
+      <header>Welcome to CodeIgniter</header>
+      <p>CodeIgniter is an Application Development Framework - a toolkit - for people who build web sites using PHP. Its goal is to enable you to develop projects much faster than you could if you were writing code from scratch, by providing a rich set of libraries for commonly needed tasks, as well as a simple interface and logical structure to access these libraries. CodeIgniter lets you creatively focus on your project by minimizing the amount of code needed for a given task.</p>
+    </section>
+    
+    <section class="main-section" id="Who_is_CodeIgniter_For">
+      <header>Who is CodeIgniter For</header>
+      <p>CodeIgniter is right for you if:</p>
+      <ul>
+        <li>You want a framework with a small footprint.</li>
+        <li>You need exceptional performance.</li>
+        <li>You need broad compatibility with standard hosting accounts that run a variety of PHP versions and configurations.</li>
+        <li>You want a framework that requires nearly zero configuration.</li>
+        <li>You want a framework that does not require you to use the command line.</li>
+        <li>You want a framework that does not require you to adhere to restrictive coding rules.</li>
+        <li>You are not interested in large-scale monolithic libraries like PEAR.</li>
+        <li>You do not want to be forced to learn a templating language (although a template parser is optionally available if you desire one).</li>
+        <li>You eschew complexity, favoring simple solutions.</li>
+        <li>You need clear, thorough documentation.</li>
+      </ul>
+    </section>
+    
+    <section class="main-section" id="Removing_the_index_file">
+      <header>Removing the index file</header>
+      <p>Be sure to have your pages set up with the latest design and development standards. That means using an HTML5 doctype and including a viewport meta tag for proper responsive behaviors. Put it all together and your pages should look like this:</p>
+      <code><pre>
+        example.com/index.php/news/article/my_article
+      </pre></code>
+      
+      <p>If your Apache server has mod_rewrite enabled, you can easily remove this file by using a .htaccess file with some simple rules. Here is an example of such a file, using the “negative” method in which everything is redirected except the specified items:</p>
+      <code><pre>
+        RewriteEngine On
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^(.*)$ index.php/$1 [L]
+      </pre></code>
+      
+      
+    </section>
+    <section class="main-section" id="Views">
+      <header>Views</header>
+      <p>
+       A view is simply a web page, or a page fragment, like a header, footer, sidebar, etc. In fact, views can flexibly be embedded within other views (within other views, etc., etc.) if you need this type of hierarchy.
+
+Views are never called directly, they must be loaded by a controller. Remember that in an MVC framework, the Controller acts as the traffic cop, so it is responsible for fetching a particular view. If you have not read the Controllers page you should do so before continuing.
+
+Using the example controller you created in the controller page, let’s add a view to it.
+      </p>
+      <h5>1. Loading a View</h5>
+      <p>Where name is the name of your view file.</p>
+      <p>If you visit your site using the URL you did earlier you should see your new view. The URL was similar to this:</p>
+      <code><pre>
+        $this->load->view('name');
+      </pre></code>
+      <p>Now, open the controller file you made earlier called Blog.php, and replace the echo statement with the view loading method:</p>
+      <code><pre>
+        class Blog extends CI_Controller {
+
+        public function index()
+        {
+                $this->load->view('blogview');
+        }
+}
+      </pre></code>
+      
+      <p>If you visit your site using the URL you did earlier you should see your new view. The URL was similar to this:</p>
+      
+      <code><pre>
+        example.com/index.php/blog/
+      </pre></code>
+      
+      <h5>2. Loading multiple views</h5>
+      <p>CodeIgniter will intelligently handle multiple calls to $this->load->view() from within a controller. If more than one call happens they will be appended together. For example, you may wish to have a header view, a menu view, a content view, and a footer view. That might look something like this:</p>
+      
+      <code><pre>
+        class Page extends CI_Controller {
+
+        public function index()
+        {
+                $data['page_title'] = 'Your title';
+                $this->load->view('header');
+                $this->load->view('menu');
+                $this->load->view('content', $data);
+                $this->load->view('footer');
+        }
+
+}
+      </pre></code>
+      
+    </section>
+    <section class="main-section" id="Controllers">
+      <header>Controllers</header>
+      <p>Controllers are the heart of your application, as they determine how HTTP requests should be handled.</p>
+      <p>What is a Controller?
+A Controller is simply a class file that is named in a way that can be associated with a URI.</p>
+      
+      <code><pre>
+        example.com/index.php/blog/
+      </pre></code>
+      <p>n the above example, CodeIgniter would attempt to find a controller named Blog.php and load it.
+
+When a controller’s name matches the first segment of a URI, it will be loaded.</p>
+      
+      <p>Let’s create a simple controller so you can see it in action. Using your text editor, create a file called Blog.php, and put the following code in it:</p>
+      
+      <code><pre>
+        class Blog extends CI_Controller {
+
+        public function index()
+        {
+                echo 'Hello World!';
+        }
+}
+      </pre></code>
+      
+      
+    </section>
+    <section class="main-section" id="Models">
+      <header>Models</header>
+      <p>Models are optionally available for those who want to use a more traditional MVC approach.</p>
+      <p>Models are PHP classes that are designed to work with information in your database. For example, let’s say you use CodeIgniter to manage a blog. You might have a model class that contains functions to insert, update, and retrieve your blog data. Here is an example of what such a model class might look like:</p>
+      
+      <code><pre>
+        class Blog_model extends CI_Model {
+
+        public $title;
+        public $content;
+        public $date;
+
+        public function get_last_ten_entries()
+        {
+                $query = $this->db->get('entries', 10);
+                return $query->result();
+        }
+
+        public function insert_entry()
+        {
+                $this->title    = $_POST['title']; // please read the below note
+                $this->content  = $_POST['content'];
+                $this->date     = time();
+
+                $this->db->insert('entries', $this);
+        }
+
+        public function update_entry()
+        {
+                $this->title    = $_POST['title'];
+                $this->content  = $_POST['content'];
+                $this->date     = time();
+
+                $this->db->update('entries', $this, array('id' => $_POST['id']));
+        }
+
+}
+      </pre></code>
+    </section>
+  </main>
+</body>
+</html>
